@@ -33,7 +33,7 @@
     }
     .items__notes > input:hover,
     .notes__button:hover {
-        box-shadow: 0 0 2px 3px #292961;
+        box-shadow: 0 0 2px 3px #E5E5E5;
     }
     .items__notes >input {
         font-family:inherit;

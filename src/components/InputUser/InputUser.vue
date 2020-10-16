@@ -47,6 +47,7 @@
         color:white;
         font-family:inherit;
         color:#000000;
+        margin:15px 0;
     }
     .wrapper {
         display:flex;

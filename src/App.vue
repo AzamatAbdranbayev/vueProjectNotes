@@ -24,7 +24,7 @@
         headers:{"secret-key":"$2b$10$NXA4SWMOk8DOUK6/f30Ylu/CvqY.tumhGMcm1YBJX2MjUND4WtC5."}
       })
       .then(response=>{
-          const records = response.data.records
+          const records = response.data.records;
           records.map(el=>{
             axios({
               method:"get",
@@ -32,9 +32,9 @@
               headers:{"secret-key":"$2b$10$NXA4SWMOk8DOUK6/f30Ylu/CvqY.tumhGMcm1YBJX2MjUND4WtC5."}
             })
             .then(response=>{
-              response.data.id = el.id
-              this.notes.push(response.data)
-              this.loading =false
+              response.data.id = el.id;
+              this.notes.push(response.data);
+              this.loading =false;
             })
             .catch(e=>alert("unable to connect to JSONbin.io"+e))
           })
@@ -64,18 +64,16 @@
                     "collection-id":"5f89bc78302a837e957a1ff7"}
           })
           .then(response=>{
-            this.notes.push(response.data.data)
+            this.notes.push(response.data.data);
           })
         }
         else {
-          alert("Вы достигли максимума")
+          alert("Вы достигли максимума");
         }
         
       },
       removeNote (id) {
-        console.log("before ", this.notes)
-        this.notes = this.notes.filter(el=>el.id !== id)
-        console.log("after ", this.notes)
+        this.notes = this.notes.filter(el=>el.id !== id);
         axios({
               method:"delete",
               url:"https://api.jsonbin.io/b/"+id,

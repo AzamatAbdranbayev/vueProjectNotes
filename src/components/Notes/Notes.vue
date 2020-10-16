@@ -19,9 +19,8 @@
         },
         methods:{
             removeNotes (id) {
-                console.log(id)
-                this.$emit('remove-notes',id)
-            },
+                this.$emit('remove-notes',id);
+            }
         }
     }
 </script>
