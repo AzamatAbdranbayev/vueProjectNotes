@@ -21,7 +21,7 @@
             removeNotes (id) {
                 console.log(id)
                 this.$emit('remove-notes',id)
-            }
+            },
         }
     }
 </script>

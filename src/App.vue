@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <Loader v-if="loading"/>
+  <div class="progressBar" v-bind:style="getProgress(notes.length*10)">{{notes.length + ' / 10'}}</div>
+  <div class="container" v-if="!loading">
     <InputUser @add-notes="addNotes"/>
     <Notes 
       v-bind:notes="notes"
@@ -11,7 +13,8 @@
 <script>
   import InputUser from './components/InputUser/InputUser';
   import Notes from './components/Notes/Notes';
-  import axios from 'axios'
+  import Loader from './components/Loader/Loader';
+  import axios from 'axios';
 
   export default {
     created () {
@@ -31,34 +34,43 @@
             .then(response=>{
               response.data.id = el.id
               this.notes.push(response.data)
+              this.loading =false
             })
-            .catch(e=>console.log("array error",e))
+            .catch(e=>alert("unable to connect to JSONbin.io"+e))
           })
         })
-        .catch(e=>console.log("created error",e))
+        .catch(e=>alert("unable to connect to JSONbin.io"+e))
     },
     name: 'App',
     components: {
       InputUser,
-      Notes
+      Notes,
+      Loader,
     },
     data() {
       return {
-        notes:[]
+        notes:[],
+        loading:true
       }
     },
     methods:{
       async addNotes (notes) {
-        await axios({
-          method:"post",
-          url:"https://api.jsonbin.io/b/",
-          data: notes,
-          headers:{"secret-key":"$2b$10$NXA4SWMOk8DOUK6/f30Ylu/CvqY.tumhGMcm1YBJX2MjUND4WtC5.",
-                  "collection-id":"5f89bc78302a837e957a1ff7"}
-        })
-        .then(response=>{
-          this.notes.push(response.data.data)
-        })
+        if(this.notes.length <=9) {
+          await axios({
+            method:"post",
+            url:"https://api.jsonbin.io/b/",
+            data: notes,
+            headers:{"secret-key":"$2b$10$NXA4SWMOk8DOUK6/f30Ylu/CvqY.tumhGMcm1YBJX2MjUND4WtC5.",
+                    "collection-id":"5f89bc78302a837e957a1ff7"}
+          })
+          .then(response=>{
+            this.notes.push(response.data.data)
+          })
+        }
+        else {
+          alert("Вы достигли максимума")
+        }
+        
       },
       removeNote (id) {
         console.log("before ", this.notes)
@@ -69,6 +81,15 @@
               url:"https://api.jsonbin.io/b/"+id,
               headers:{"secret-key":"$2b$10$NXA4SWMOk8DOUK6/f30Ylu/CvqY.tumhGMcm1YBJX2MjUND4WtC5."}
             })
+      },
+      getProgress: function (width) {
+        return {
+          'width':width+'%',
+          'background-color':'#FCA311',
+          'height':'30px',
+          'min-width':'60px',
+          'margin':'15px 0'
+        }
       }
     }
   }

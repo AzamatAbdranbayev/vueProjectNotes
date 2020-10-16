@@ -4,6 +4,7 @@
         <button 
             class="user__button" 
             type="submit"
+            id="btn"
         >
             Добавить запись
         </button>
@@ -38,16 +39,20 @@
     .user__input {
         width:300px;
         height:300px;
+        font-family:inherit;
     }
     .user__button {
-        width:70px;
-        background:#007BFE;
+        width:100px;
+        background:#FCA311;
         color:white;
+        font-family:inherit;
+        color:#000000;
     }
     .wrapper {
         display:flex;
         flex-direction:column;
         flex-basis:45%;
+        align-items:center;
     }
  
 </style>
