@@ -47,6 +47,7 @@
     .wrapper {
         display:flex;
         flex-direction:column;
+        flex-basis:45%;
     }
  
 </style>
